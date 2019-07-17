@@ -1,0 +1,13 @@
+Connecting to Database
+1. create EDMX
+	1.1. right click on project
+	1.2. click add -> new item
+	1.3. ADO.NET Entity Data Model (EDMX)
+	1.4. EF Designer From Database
+	1.5. Copy and paste server name into "Server Name". e.g. IDV-DEV1\MSSQLSERVER01,53234
+	1.6. Choose Entity Framework 6.x
+	1.7. Click Finish.
+
+Restore Database
+1. right click databases
+2. click restore database

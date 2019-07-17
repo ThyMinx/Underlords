@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UnderlordsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alliances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descr" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HeroAlliances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeroId" Type="int" Nullable="false" />
+          <Property Name="AllianceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Heros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+          <Property Name="Skill" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HeroAlliances_Alliances">
+          <End Role="Alliances" Type="Self.Alliances" Multiplicity="1" />
+          <End Role="HeroAlliances" Type="Self.HeroAlliances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alliances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HeroAlliances">
+              <PropertyRef Name="AllianceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeroAlliances_Heros">
+          <End Role="Heros" Type="Self.Heros" Multiplicity="1" />
+          <End Role="HeroAlliances" Type="Self.HeroAlliances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heros">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HeroAlliances">
+              <PropertyRef Name="HeroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UnderlordsModelStoreContainer">
+          <EntitySet Name="Alliances" EntityType="Self.Alliances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HeroAlliances" EntityType="Self.HeroAlliances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Heros" EntityType="Self.Heros" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HeroAlliances_Alliances" Association="Self.FK_HeroAlliances_Alliances">
+            <End Role="Alliances" EntitySet="Alliances" />
+            <End Role="HeroAlliances" EntitySet="HeroAlliances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeroAlliances_Heros" Association="Self.FK_HeroAlliances_Heros">
+            <End Role="Heros" EntitySet="Heros" />
+            <End Role="HeroAlliances" EntitySet="HeroAlliances" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UnderlordsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alliance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HeroAlliances" Relationship="Self.FK_HeroAlliances_Alliances" FromRole="Alliances" ToRole="HeroAlliances" />
+        </EntityType>
+        <EntityType Name="HeroAlliance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeroId" Type="Int32" Nullable="false" />
+          <Property Name="AllianceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alliance" Relationship="Self.FK_HeroAlliances_Alliances" FromRole="HeroAlliances" ToRole="Alliances" />
+          <NavigationProperty Name="Hero" Relationship="Self.FK_HeroAlliances_Heros" FromRole="HeroAlliances" ToRole="Heros" />
+        </EntityType>
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <Property Name="Skill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HeroAlliances" Relationship="Self.FK_HeroAlliances_Heros" FromRole="Heros" ToRole="HeroAlliances" />
+        </EntityType>
+        <Association Name="FK_HeroAlliances_Alliances">
+          <End Role="Alliances" Type="Self.Alliance" Multiplicity="1" />
+          <End Role="HeroAlliances" Type="Self.HeroAlliance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alliances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HeroAlliances">
+              <PropertyRef Name="AllianceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeroAlliances_Heros">
+          <End Role="Heros" Type="Self.Hero" Multiplicity="1" />
+          <End Role="HeroAlliances" Type="Self.HeroAlliance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heros">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HeroAlliances">
+              <PropertyRef Name="HeroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UnderlordsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alliances" EntityType="Self.Alliance" />
+          <EntitySet Name="HeroAlliances" EntityType="Self.HeroAlliance" />
+          <EntitySet Name="Heros" EntityType="Self.Hero" />
+          <AssociationSet Name="FK_HeroAlliances_Alliances" Association="Self.FK_HeroAlliances_Alliances">
+            <End Role="Alliances" EntitySet="Alliances" />
+            <End Role="HeroAlliances" EntitySet="HeroAlliances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeroAlliances_Heros" Association="Self.FK_HeroAlliances_Heros">
+            <End Role="Heros" EntitySet="Heros" />
+            <End Role="HeroAlliances" EntitySet="HeroAlliances" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UnderlordsModelStoreContainer" CdmEntityContainer="UnderlordsEntities">
+          <EntitySetMapping Name="Alliances">
+            <EntityTypeMapping TypeName="UnderlordsModel.Alliance">
+              <MappingFragment StoreEntitySet="Alliances">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HeroAlliances">
+            <EntityTypeMapping TypeName="UnderlordsModel.HeroAlliance">
+              <MappingFragment StoreEntitySet="HeroAlliances">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="HeroId" ColumnName="HeroId" />
+                <ScalarProperty Name="AllianceId" ColumnName="AllianceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Heros">
+            <EntityTypeMapping TypeName="UnderlordsModel.Hero">
+              <MappingFragment StoreEntitySet="Heros">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Skill" ColumnName="Skill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
