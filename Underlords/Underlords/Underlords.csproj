@@ -153,6 +153,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alliance.cs">
+      <DependentUpon>UnderlordsDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -160,11 +163,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hero.cs">
+      <DependentUpon>UnderlordsDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HeroAlliance.cs">
+      <DependentUpon>UnderlordsDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnderlordsDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UnderlordsDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnderlordsDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnderlordsDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UnderlordsDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -200,6 +214,12 @@
     <Content Include="UnderlordsDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UnderlordsDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>UnderlordsDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="UnderlordsDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UnderlordsDataModel.edmx</DependentUpon>
+      <LastGenOutput>UnderlordsDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -219,13 +239,20 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UnderlordsDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="UnderlordsDataModel.edmx.diagram">
+    <Content Include="UnderlordsDataModel.edmx.diagram">
       <DependentUpon>UnderlordsDataModel.edmx</DependentUpon>
-    </None>
+    </Content>
+    <Content Include="SnippetsHelp\CSharp\ActionResultTryCatch.snippet" />
+    <Content Include="SnippetsHelp\CSharp\AttrDisplayName.snippet" />
+    <Content Include="SnippetsHelp\CSharp\AttrRequired.snippet" />
+    <Content Include="SnippetsHelp\CSharp\GetSet.snippet" />
+    <Content Include="SnippetsHelp\JavaScript\BodyOnClick.snippet" />
+    <Content Include="SnippetsHelp\JavaScript\BodyOnClickPost.snippet" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="SnippetsHelp\HTML\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -3,37 +3,93 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Underlords Datasheet</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="wrapper">
+        <nav class="navbar flex-md-nowrap p-0 w-100" id="mainNavbar" style="background-color:white">
+
+
+            <div class=" col-lg-2">
+                <a style="color:inherit; text-decoration:none;" href='@Url.Action("Index", "Home", new { area = "" })'>
+                    <div class="container">
+                        <img class="" style="max-height:100px;padding:15px;" src="~/Content/Images/pts-logo.jpg" alt="Logo">
+                        <h4>
+                            @*Petrotech Portal*@
+                        </h4>
+
+                    </div>
+                </a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+        </nav>
+
+        <div>
+            <main class="" style="margin:0; padding-top:0 !important">
+                <section id="body-container" class="pt-4">
+                    <ul style="font-size:25px; margin-right:0; margin-bottom:0;" class="breadcrumb">
+                        <li style="width:50%">
+                            @if (ViewBag.Title != "Home")
+                            {
+                                <a id="backButton" href='javascript:history.back()'><i class="fa fa-arrow-circle-left" style="margin-right:20px"></i></a>
+                            }
+
+                            <b style="color:white;">@ViewBag.Title</b>
+                        </li>
+                        <li style="width:50%">
+                            <div class="btn-group float-right">
+                                <button type="button" class="btn btn-primary dropdown-toggle" style="border:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Settings
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <button class="dropdown-item adminBtn" href="/Admin" type="button">Admin</button>
+                                    <button class="dropdown-item changePassword" href="" type="button">Change Password</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="container-fluid" id="mainContainer" style="@*background-color:lightgray*@">
+                        @*<small>User: @User.Identity.Name (If this is not you please logout!)</small>*@
+                        <br />
+                        <br />
+                        @RenderBody()
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div class="push"></div>
+    </div>
+
+    <footer class="footer" style="padding-bottom:0; margin-bottom:0;">
+        <p style="padding-bottom:0; margin-bottom:0;">&copy; @DateTime.Now.Year Intradev</p>
+    </footer>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -1,0 +1,39 @@
+﻿<CodeSnippet Format="1.1.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>Body On Click</Title>
+    <Author>James Cairns</Author>
+    <Shortcut>ocl</Shortcut>
+    <Description>Snippet to insert a body on click event function.</Description>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+      <SnippetType>SurroundsWith</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>Selector</ID>
+        <ToolTip>Put your element selector in here such as .class-name or #the-id</ToolTip>
+        <Default>-- Insert Selector --</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="JavaScript">
+      <![CDATA[$$("body").on("click", "$Selector$", function (e)
+{
+    e.preventDefault();
+    var me = $(this);
+    
+    $$.post("Url.Action("$ActionName$")", { $ActionVariable$: $EventVariable$ }, function(data){
+        if(data.success){
+            Alert("success");
+        }
+        else{
+            Alert("failure");
+        }
+    });
+    
+    $selected$$end$
+});]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>

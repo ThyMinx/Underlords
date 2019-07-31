@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Action Result</Title>
+      <Author>James Cairns</Author>
+      <Description>MVC Action Result method containing a try catch and return for errors.</Description>
+      <Shortcut>artc</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>MethodName</ID>
+          <ToolTip>Replace with the name of the method: e.g. GetSomeData</ToolTip>
+          <Default>MethodName</Default>
+        </Literal>
+        <Literal>
+          <ID>ModelClass</ID>
+          <ToolTip>Replace with the name of the model: e.g. IndexViewModel</ToolTip>
+          <Default>ModelClass</Default>
+        </Literal>
+        <Literal>
+          <ID>model</ID>
+          <ToolTip>Replace with the variable name of the model: e.g. ivmodel</ToolTip>
+          <Default>model</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[        public ActionResult $MethodName$($ModelClass$ $model$)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("inner"))
+                    errorMessage = ex.InnerException.Message;
+                else
+                    errorMessage = ex.Message;
+                //Log.Catch(ex);
+                return Json(new { success = false, errorMessage }, JsonRequestBehavior.AllowGet);
+            }
+        }]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
